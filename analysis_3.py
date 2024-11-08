@@ -8,7 +8,7 @@ from data_loader import DataLoader
 from model import Issue,Event
 import config
 
-class ExampleAnalysis:
+class Analysis3:
     """
     Implements an example analysis of GitHub
     issues and outputs the result of that analysis.
@@ -58,10 +58,10 @@ class ExampleAnalysis:
         # TO VIEW
         #plt.show()
         # TO SAVE IN A FILE
-        plt.savefig('examplePlot.png') 
+        plt.savefig('plot3.png') 
                         
     
 
 if __name__ == '__main__':
     # Invoke run method when running this module directly
-    ExampleAnalysis().run()
+    Analysis3().run()
