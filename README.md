@@ -1,11 +1,11 @@
 # ENPM611 Project Application Template - Team9
 
 ## The three analysis features implemented in this project are:
-### Analysis One:
+**Analysis One:**
 
-### Analysis Two: Analysis2 provides an overview of contributor activities across all issues, highlighting top contributors based on the comments, labeling activities, and issues closed.
+**Analysis Two:**  Analysis2 provides an overview of contributor activities across all issues, highlighting top contributors based on the comments, labeling activities, and issues closed.
 
-### Analysis Three: 
+**Analysis Three:** 
 
 This is the template for the ENPM611 class project. Use this template in conjunction with the provided data to implement an application that analyzes GitHub issues for the [poetry](https://github.com/python-poetry/poetry/issues) Open Source project and generates interesting insights.
 
