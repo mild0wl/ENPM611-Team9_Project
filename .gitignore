@@ -162,4 +162,5 @@ cython_debug/
 #.idea/
 
 # Ignore the poetry
-*/poetry_issues_all.json
+poetry_issues_all.json
+poetry_issues.json
