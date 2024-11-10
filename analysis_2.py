@@ -1,67 +1,86 @@
 
 from typing import List
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 from data_loader import DataLoader
-from model import Issue,Event
-import config
+from model import Issue, Event
 
 class Analysis2:
     """
-    Implements an example analysis of GitHub
-    issues and outputs the result of that analysis.
+    Analysis2 provides an overview of contributor activities across all issues, 
+    highlighting top contributors based on the comments, labeling activities, and issues closed.
     """
-    
-    def __init__(self):
-        """
-        Constructor
-        """
-        # Parameter is passed in via command line (--user)
-        self.USER:str = config.get_parameter('user')
-    
     def run(self):
         """
-        Starting point for this analysis.
-        
-        Note: this is just an example analysis. You should replace the code here
-        with your own implementation and then implement two more such analyses.
+        run() function is used to do the analysis from the list of issues.
         """
-        issues:List[Issue] = DataLoader().get_issues()
+        # list of issues
+        issues: List[Issue] = DataLoader().get_issues()
         
-        ### BASIC STATISTICS
-        # Calculate the total number of events for a specific user (if specified in command line args)
-        total_events:int = 0
+        # collecting the required data from the list of issuess based on the author and event type
+        event_data = []
         for issue in issues:
-            total_events += len([e for e in issue.events if self.USER is None or e.author == self.USER])
+            for event in issue.events:
+                event_data.append({
+                    'author': event.author,
+                    'type': event.event_type
+                })
         
-        output:str = f'Found {total_events} events across {len(issues)} issues'
-        if self.USER is not None:
-            output += f' for {self.USER}.'
-        else:
-            output += '.'
-        print('\n\n'+output+'\n\n')
+        df_events = pd.DataFrame(event_data)
         
-
-        ### BAR CHART
-        # Display a graph of the top 50 creators of issues
-        top_n:int = 50
-        # Create a dataframe (with only the creator's name) to make statistics a lot easier
-        df = pd.DataFrame.from_records([{'creator':issue.creator} for issue in issues])
-        # Determine the number of issues for each creator and generate a bar chart of the top N
-        df_hist = df.groupby(df["creator"]).value_counts().nlargest(top_n).plot(kind="bar", figsize=(14,8), title=f"Top {top_n} issue creators")
-        # Set axes labels
-        df_hist.set_xlabel("Creator Names")
-        df_hist.set_ylabel("# of issues created")
-        # Plot the chart
+        if df_events.empty:
+            print("No events found in the dataset.")
+            return
+        
+        # Top 10 contributors by number of comments
+        top_commenters = df_events[df_events['type'] == 'commented'].groupby('author').size().nlargest(10)
+        print("\nTop 10 Contributors by Number of Comments:")
+        print(top_commenters)
+        
+        # Top 10 contributors by labeling activities
+        top_labelers = df_events[df_events['type'] == 'labeled'].groupby('author').size().nlargest(10)
+        print("\nTop 10 Contributors by Labeling Activities:")
+        print(top_labelers)
+        
+        # Top 10 contributors by issue closed
+        top_closers = df_events[df_events['type'] == 'closed'].groupby('author').size().nlargest(10)
+        print("\nTop 10 Contributors by Issue Closings:")
+        print(top_closers)
+        
+        # Number of unique contributors involved
+        unique_contributors_count = df_events['author'].nunique()
+        print(f"\nTotal number of unique contributors: {unique_contributors_count}\n")
+        
+        # Plotting the charts
+        plt.figure(figsize=(16, 10))
+        
+        # Top 10 commenters chart
+        plt.subplot(3, 1, 1)
+        top_commenters.plot(kind='bar', title='Top 10 Contributors by Comments')
+        plt.xlabel('Contributors')
+        plt.ylabel('Number of Comments')
+        
+        # Top 10 labelers chart
+        plt.subplot(3, 1, 2)
+        top_labelers.plot(kind='bar', title='Top 10 Contributors by Labeling Activities')
+        plt.xlabel('Contributors')
+        plt.ylabel('Number of Labeling Activities')
+        
+        # Top 10 issues closers chart
+        plt.subplot(3, 1, 3)
+        top_closers.plot(kind='bar', title='Top 10 Contributors by Issue Closed')
+        plt.xlabel('Contributors')
+        plt.ylabel('Number of Issue Closed')
+        
+        # saving the plot
+        plt.tight_layout()
         # TO VIEW
-        #plt.show()
+        plt.show()
         # TO SAVE IN A FILE
-        plt.savefig('plot2.png') 
-                        
-    
+        filename = "analysis_2.png"
+        plt.savefig(filename)
+        print(f"Contributor activity overview saved in: '{filename}'.")
 
 if __name__ == '__main__':
-    # Invoke run method when running this module directly
     Analysis2().run()
