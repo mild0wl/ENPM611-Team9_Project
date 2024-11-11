@@ -1,4 +1,6 @@
 from typing import List
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
@@ -157,7 +159,7 @@ class Analysis1:
         combined_plot_path = os.path.join(output_dir, 'combined_issue_statistics_plot.png')
         plt.savefig(combined_plot_path)
         print(f"Combined plot saved to {combined_plot_path}")
-        plt.close()
+        
         
         ### PIE CHART
         # Plotting open vs closed issues
@@ -170,7 +172,7 @@ class Analysis1:
         pie_chart_path = os.path.join(output_dir, 'open_vs_closed_issues_pie_chart.png')
         plt.savefig(pie_chart_path)
         print(f"Pie chart saved to {pie_chart_path}")
-        plt.close()
+        
         
         ### HISTOGRAM
         # Plotting median response time for issues with at least 5 comments
@@ -186,7 +188,7 @@ class Analysis1:
             histogram_path = os.path.join(output_dir, 'median_response_time_histogram.png')
             plt.savefig(histogram_path)
             print(f"Histogram saved to {histogram_path}")
-            plt.close()
+            
         
         ### BAR CHART FOR REOPENED ISSUES
         # Plotting reopened issues proportion
@@ -201,7 +203,6 @@ class Analysis1:
         reopened_issues_chart_path = os.path.join(output_dir, 'reopened_issues_bar_chart.png')
         plt.savefig(reopened_issues_chart_path)
         print(f"Bar chart for reopened issues saved to {reopened_issues_chart_path}")
-        plt.close()
     
     def list_labels(self, issues: List[Issue]):
         """
@@ -213,5 +214,6 @@ class Analysis1:
         print("Available labels:", labels)
 
 if __name__ == '__main__':
-    # Invoke run method when running this module directly
-    Analysis1().run()
+    analysis = Analysis1()
+    analysis.run()
+    plt.show()
