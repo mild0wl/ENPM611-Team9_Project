@@ -11,6 +11,15 @@ from model import Issue
 import config
 
 class Analysis1:
+    def list_labels(self, issues: List[Issue]):
+        """
+        Lists all unique labels available in the issues dataset.
+        """
+        labels = set()
+        for issue in issues:
+            labels.update(issue.labels)
+        print("Available labels:", labels)
+
     """
     Implements an input-based analysis of GitHub
     issues and outputs the result of that analysis based on the issue label.
@@ -24,6 +33,9 @@ class Analysis1:
         self.LABEL: str = config.get_parameter('label')
     
     def run(self):
+        # Clear all existing plots to avoid overlap
+        plt.close('all')
+        
         """
         Starting point for this analysis.
         
@@ -152,8 +164,9 @@ class Analysis1:
         plt.tight_layout()
         
         # Ensure output directory exists
-        output_dir = os.path.join(os.getcwd(), 'output')
-        os.makedirs(output_dir, exist_ok=True)
+        timestamp = pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')
+        output_dir = os.path.join(os.getcwd(), 'output', f'{self.LABEL}_{timestamp}')
+        os.makedirs(output_dir, exist_ok=True)  # Create unique output directory for each run
         
         # Save the combined bar chart
         combined_plot_path = os.path.join(output_dir, 'combined_issue_statistics_plot.png')
@@ -203,6 +216,9 @@ class Analysis1:
         reopened_issues_chart_path = os.path.join(output_dir, 'reopened_issues_bar_chart.png')
         plt.savefig(reopened_issues_chart_path)
         print(f"Bar chart for reopened issues saved to {reopened_issues_chart_path}")
+        
+        # Show all plots at once
+        plt.show()
     
     def list_labels(self, issues: List[Issue]):
         """
@@ -214,6 +230,6 @@ class Analysis1:
         print("Available labels:", labels)
 
 if __name__ == '__main__':
+    # Invoke run method when running this module directly
     analysis = Analysis1()
     analysis.run()
-    plt.show()
