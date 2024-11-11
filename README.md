@@ -1,7 +1,8 @@
 # ENPM611 Project Application Template - Team9
 
 ## The three analysis features implemented in this project are:
-**Analysis One:**The analysis takes user input to analyze GitHub issues based on a specific label. If a label isn't provided via the command line, it lists all available labels and prompts the user to choose one. The selected label is used to filter issues for analysis. The analysis includes several statistics, such as the average number of comments, time to close, top contributors, and the proportion of reopened issues. Visual outputs include combined bar charts (number of comments, labels, reopened issues), a pie chart (open vs closed issues), a histogram (median response times), and a bar chart for reopened issues. This user-interactive approach allows the user to explore issues dynamically based on the selected label.
+**Analysis One:**The analysis takes user input to analyze GitHub issues based on a specific label. If a label isn't provided via the command line, it lists all available labels and prompts the user to choose one. The selected label is used to filter issues for analysis. The analysis includes several statistics, such as the average number of comments, time to close, top contributors, and the proportion of reopened issues. Visual outputs include combined bar charts (number of comments, labels, reopened issues), a pie chart (open vs closed issues), a histogram (median response times), and a bar chart for reopened issues. This user-interactive approach allows the user to explore issues dynamically based on the selected label. 
+The graphs are stored in 'Output' folder
 
 **Analysis Two:**  Analysis2 provides an overview of contributor activities across all issues, highlighting top contributors based on the comments, labeling activities, and issues closed.
 
