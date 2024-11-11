@@ -3,7 +3,9 @@
 ## The three analysis features implemented in this project are:
 **Analysis One:**
 
-**Analysis Two:**  Analysis2 provides an overview of contributor activities across all issues, highlighting top contributors based on the comments, labeling activities, and issues closed.
+**Analysis Two:** Analysis2 provides an overview of contributor activities across all issues, highlighting top contributors based on the comments, labeling activities, and issues closed. It also includes the Top 10 labels used in the issues along with the unqiue contributers to the isssues.
+- filename_contributer_activity.png: shows the top contributers to based on comments, labeling and closed issues.
+- top_labels_activity.png: it shows the Top 10 labels from the issues.
 
 **Analysis Three:** 
 

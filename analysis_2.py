@@ -10,6 +10,7 @@ class Analysis2:
     """
     Analysis2 provides an overview of contributor activities across all issues, 
     highlighting top contributors based on the comments, labeling activities, and issues closed.
+    It also includes the Top 10 labels used in the issues along with the unqiue contributers to the isssues
     """
     def run(self):
         """
