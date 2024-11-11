@@ -4,7 +4,9 @@
 **Analysis One:** The analysis takes user input to analyze GitHub issues based on a specific label. If a label isn't provided via the command line, it lists all available labels and prompts the user to choose one. The selected label is used to filter issues for analysis. The analysis includes several statistics, such as the average number of comments, time to close, top contributors, and the proportion of reopened issues. Visual outputs include combined bar charts (number of comments, labels, reopened issues), a pie chart (open vs closed issues), a histogram (median response times), and a bar chart for reopened issues. This user-interactive approach allows the user to explore issues dynamically based on the selected label. 
 The graphs are stored in 'Output' folder
 
-**Analysis Two:**  Analysis2 provides an overview of contributor activities across all issues, highlighting top contributors based on the comments, labeling activities, and issues closed.
+**Analysis Two:** Analysis2 provides an overview of contributor activities across all issues, highlighting top contributors based on the comments, labeling activities, and issues closed. It also includes the Top 10 labels used in the issues along with the unqiue contributers to the isssues.
+- filename_contributer_activity.png: shows the top contributers to based on comments, labeling and closed issues.
+- top_labels_activity.png: it shows the Top 10 labels from the issues.
 
 **Analysis Three:** Analysis 3 provides insights into the closure times of issues. The analysis highlights average closure times for issues based on specific label types, and by both month and year.
 

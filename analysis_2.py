@@ -10,6 +10,7 @@ class Analysis2:
     """
     Analysis2 provides an overview of contributor activities across all issues, 
     highlighting top contributors based on the comments, labeling activities, and issues closed.
+    It also includes the Top 10 labels used in the issues along with the unqiue contributers to the isssues
     """
     def run(self):
         """
@@ -24,7 +25,8 @@ class Analysis2:
             for event in issue.events:
                 event_data.append({
                     'author': event.author,
-                    'type': event.event_type
+                    'type': event.event_type,
+                    "label": getattr(event, 'label', 'No Label') 
                 })
         
         df_events = pd.DataFrame(event_data)
@@ -47,10 +49,6 @@ class Analysis2:
         top_closers = df_events[df_events['type'] == 'closed'].groupby('author').size().nlargest(10)
         print("\nTop 10 Contributors by Issue Closings:")
         print(top_closers)
-        
-        # Number of unique contributors involved
-        unique_contributors_count = df_events['author'].nunique()
-        print(f"\nTotal number of unique contributors: {unique_contributors_count}\n")
         
         # Plotting the charts
         plt.figure(figsize=(16, 10))
@@ -76,11 +74,32 @@ class Analysis2:
         # saving the plot
         plt.tight_layout()
         # TO VIEW
-        plt.show()
+        #plt.show()
         # TO SAVE IN A FILE
-        filename = "analysis_2.png"
-        plt.savefig(filename)
-        print(f"Contributor activity overview saved in: '{filename}'.")
-
+        filename_contributer_activity = "filename_contributer_activity.png"
+        plt.savefig(filename_contributer_activity)
+        print(f"Contributor activity overview saved in: '{filename_contributer_activity}'.")
+        
+        # Number of unique contributors involved
+        unique_contributors_count = df_events['author'].nunique()
+        print(f"\nTotal number of unique contributors: {unique_contributors_count}\n")
+        
+        # Top 10 Most Active Labels by Contributors
+        label_types = df_events[df_events['type'] == 'labeled']
+        top_labels  = label_types['label'].value_counts().nlargest(10)
+        print("\nTop 10 Most Active Labels by Contributors:")
+        print(top_labels)
+        
+        # plot for top 10 most unique labels
+        plt.figure(figsize=(16,10))
+        top_labels.plot(kind='bar', title='Top 10 Most Active Labels by Contributors')
+        plt.xlabel('Label Type')
+        plt.ylabel('Number of Activities')
+        filename_top_labels = "top_labels_activity.png"
+        plt.savefig(filename_top_labels)
+        print(f"Top labels activity plot saved in: '{filename_top_labels}'.")
+        #plt.show()
+        
+# main caller
 if __name__ == '__main__':
     Analysis2().run()
