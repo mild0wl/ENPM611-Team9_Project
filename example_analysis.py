@@ -55,7 +55,10 @@ class ExampleAnalysis:
         df_hist.set_xlabel("Creator Names")
         df_hist.set_ylabel("# of issues created")
         # Plot the chart
-        plt.show() 
+        # TO VIEW
+        #plt.show()
+        # TO SAVE IN A FILE
+        plt.savefig('examplePlot.png') 
                         
     
 
