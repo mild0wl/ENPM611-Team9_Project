@@ -44,7 +44,22 @@ class TestAnalysis3(unittest.TestCase):
         self.assertEqual(mock_plt.savefig.call_count, 3)
         self.assertEqual(mock_plt.show.call_count, 3)
 
+    @patch('analysis_3.plt')
+    def test_plot_bar_chart(self, mock_plt):
+        # Test with multiple data points
+        analysis = Analysis3()
+        data = {'bug': 2.0, 'enhancement': 3.0}
+        analysis.plot_bar_chart(data, 'Label', 'Title', 'filename.png')
 
+        mock_plt.figure.assert_called_once_with(figsize=(10, 6))
+        mock_plt.bar.assert_called_once_with(['bug', 'enhancement'], [2.0, 3.0], color='skyblue')
+        mock_plt.xlabel.assert_called_once_with('Label')
+        mock_plt.ylabel.assert_called_once_with('Average Closure Time (days)')
+        mock_plt.title.assert_called_once_with('Title')
+        mock_plt.xticks.assert_called()
+        mock_plt.tight_layout.assert_called_once()
+        mock_plt.savefig.assert_called_once_with('filename.png')
+        mock_plt.show.assert_called_once()
 
 if __name__ == '__main__':
     unittest.main()
