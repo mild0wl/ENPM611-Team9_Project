@@ -60,6 +60,12 @@ class TestAnalysis3(unittest.TestCase):
         mock_plt.tight_layout.assert_called_once()
         mock_plt.savefig.assert_called_once_with('filename.png')
         mock_plt.show.assert_called_once()
+        
+    @patch('analysis_3.config.get_parameter', return_value='test_user')
+    def test_init(self, mock_get_parameter):
+        analysis = Analysis3()
+        self.assertEqual(analysis.USER, 'test_user')
+        mock_get_parameter.assert_called_once_with('user')
 
 if __name__ == '__main__':
     unittest.main()
